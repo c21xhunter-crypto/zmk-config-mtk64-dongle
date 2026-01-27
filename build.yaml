@@ -24,7 +24,5 @@ include:
    shield: mtk64_L rgbled_adapter
  - board: nrf52840_mdbt50q_rx
    shield: mtk64_DONGLE rgbled_adapter
-   snippet: studio-rpc-usb-uart
-   cmake-args: -DCONFIG_ZMK_STUDIO=y
  - board: xiao_ble
    shield: settings_reset
