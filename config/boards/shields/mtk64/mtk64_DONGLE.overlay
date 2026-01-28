@@ -1,22 +1,28 @@
-/* mtk64_DONGLE.overlay (Raytac MDBT50Q-RX / mdbt50q_rx 用)
- *
- * ドングルはキースキャン・物理レイアウト不要なので
- * mtk64.dtsi / trackball.dtsi を読み込まない。
- *
- * RGBLED は rgbled_adapter の overlay が別途適用される。
- */
+#include <dt-bindings/zmk/matrix_transform.h>
 
 / {
-    /* もしどこかで物理レイアウトが定義されていた場合に備えて消しておく */
-    /delete-node/ mtk64_physical_layout;
-    /delete-node/ default_transform;
-    /delete-node/ kscan0;
-    /delete-node/ sensors;
-    /delete-node/ left_encoder;
-    /delete-node/ right_encoder;
-
     chosen {
-        /* ドングルでは物理レイアウト参照を持たない */
-        /delete-property/ zmk,physical-layout;
+        /* ZMKがキー数を計算するために必要 */
+        zmk,kscan = &kscan0;
+        zmk,matrix-transform = &default_transform;
+    };
+
+    /* 1x1 のダミー matrix transform */
+    default_transform: keymap_transform_0 {
+        compatible = "zmk,matrix-transform";
+        columns = <1>;
+        rows = <1>;
+        map = <RC(0,0)>;
+    };
+
+    /* 1x1 のダミー kscan
+     * 使われない想定なので、未使用っぽいGPIOを1本だけ指定してビルド要件を満たす。
+     * (P0.02 は例。衝突しそうなら別ピンに変えてOK)
+     */
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        columns = <1>;
+        rows = <1>;
+        input-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
