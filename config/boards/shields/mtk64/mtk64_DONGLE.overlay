@@ -2,8 +2,8 @@
 #include "mtk64_trackball.dtsi"
 
 / {
-    /* ドングルはキー行列スキャン不要。XIAO依存の /kscan を削除 */
-    /delete-node/ &{/kscan};
+    /* ドングルはキー行列スキャン不要。ルート直下の kscan ノードを削除 */
+    /delete-node/ kscan;
 };
 
 &default_transform {
