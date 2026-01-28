@@ -1,15 +1,22 @@
-#include "mtk64.dtsi"
-#include "mtk64_trackball.dtsi"
+/* mtk64_DONGLE.overlay (Raytac MDBT50Q-RX / mdbt50q_rx 用)
+ *
+ * ドングルはキースキャン・物理レイアウト不要なので
+ * mtk64.dtsi / trackball.dtsi を読み込まない。
+ *
+ * RGBLED は rgbled_adapter の overlay が別途適用される。
+ */
 
 / {
-    /* ドングルはキー行列スキャン不要。ルート直下の kscan ノードを削除 */
-    /delete-node/ kscan;
-};
+    /* もしどこかで物理レイアウトが定義されていた場合に備えて消しておく */
+    /delete-node/ mtk64_physical_layout;
+    /delete-node/ default_transform;
+    /delete-node/ kscan0;
+    /delete-node/ sensors;
+    /delete-node/ left_encoder;
+    /delete-node/ right_encoder;
 
-&default_transform {
-    row-offset = <14>;
-};
-
-&trackball_listener {
-    status = "okay";
+    chosen {
+        /* ドングルでは物理レイアウト参照を持たない */
+        /delete-property/ zmk,physical-layout;
+    };
 };
