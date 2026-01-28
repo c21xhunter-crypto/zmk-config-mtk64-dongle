@@ -2,12 +2,10 @@
 
 / {
     chosen {
-        /* ZMKがキー数を計算するために必要 */
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
     };
 
-    /* 1x1 のダミー matrix transform */
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <1>;
@@ -15,14 +13,8 @@
         map = <RC(0,0)>;
     };
 
-    /* 1x1 のダミー kscan
-     * 使われない想定なので、未使用っぽいGPIOを1本だけ指定してビルド要件を満たす。
-     * (P0.02 は例。衝突しそうなら別ピンに変えてOK)
-     */
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-direct";
-        columns = <1>;
-        rows = <1>;
         input-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 };
