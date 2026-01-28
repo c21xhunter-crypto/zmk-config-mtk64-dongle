@@ -23,6 +23,6 @@ include:
  - board: xiao_ble
    shield: mtk64_L rgbled_adapter
  - board: mdbt50q_rx
-   shield: mtk64_DONGLE rgbled_adapter
+   shield: mtk64_DONGLE
  - board: xiao_ble
    shield: settings_reset
